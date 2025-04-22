@@ -2,55 +2,69 @@
 import {IoIosCloseCircle} from "react-icons/io";
 import {useCartStore} from "../../store/useStore.ts";
 import useTostifyNotifications from "../../hooks/useTostifyNotifications.ts";
+
 type ImageProductInCartProps = {
     name: string;
     image: string;
-    id: number
+    id: number;
+    width?: number
 }
 
-const ImageProductInCart = ( { name, image, id }: ImageProductInCartProps ) => {
+const ImageProductInCart = ( { name, image, id, width }: ImageProductInCartProps ) => {
 
     const { removeItemById } = useCartStore();
     const { notifyError } = useTostifyNotifications();
 
     return (
         <>
-            {/* Contenedor de la imagen con la "X" en la esquina */}
-            <Box position="relative">
+            <Box
+                sx={{
+                    position: "relative",
+                    width: width ? width : 60,
+                    height: 60,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
                 <Avatar
                     alt={name}
                     src={image}
                     sx={{
-                        width: 56,
-                        height: 56,
-                        borderRadius: 2, // Hace que no sea completamente redonda
-                        objectFit: "cover", // Se ajusta sin deformarse
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: 2,
+                        objectFit: "cover",
                     }}
                 />
 
-                {/* Botón para eliminar en la parte superior derecha del Avatar */}
+                {/* Botón de eliminar */}
                 <IconButton
                     onClick={() => {
                         removeItemById(id);
-                        notifyError(`Se elimino ${name} correctamente del carrito `)
-                    } }
+                        notifyError(`Se eliminó ${name} correctamente del carrito`);
+                    }}
                     sx={{
                         position: "absolute",
-                        top: -6,
-                        right: -6,
-                        backgroundColor: "rgba(255, 255, 255, 1)", // Fondo blanco con transparencia
+                        top: 0,
+                        right: 0,
+                        transform: "translate(50%, -50%)", // Corrige alineación
+                        backgroundColor: "white",
                         color: "red",
-                        width: 20,
-                        height: 20,
+                        width: 22,
+                        height: 22,
                         padding: 0,
+                        borderRadius: "50%",
+                        boxShadow: 2,
                         "&:hover": {
-                            backgroundColor: "rgba(255, 255, 255, 1)",
-                        }
+                            backgroundColor: "rgba(255, 255, 255, 0.8)",
+                        },
                     }}
                 >
-                    <IoIosCloseCircle />
+                    <IoIosCloseCircle size={20} />
                 </IconButton>
             </Box>
+
         </>
     )
 }

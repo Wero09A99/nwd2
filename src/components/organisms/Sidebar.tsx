@@ -6,11 +6,16 @@ import {FaShoppingCart, FaStore} from "react-icons/fa";
 import {MdManageAccounts, MdOutlineSupportAgent} from "react-icons/md";
 import {IoReceiptSharp} from "react-icons/io5";
 import {ImExit} from "react-icons/im";
+import {GiShoppingBag} from "react-icons/gi";
+import {useNavigate} from "react-router-dom";
 
 function Sidebar() {
 
+    const navigate = useNavigate();
+
     const menuItems = [
         { text: 'Home', icon: <IoIosHome /> },
+        { text: 'Detalle carrito compras', icon: <GiShoppingBag />},
         { text: 'Pedidos', icon: <FaShoppingCart /> },
         { text: 'Cuentas', icon: <MdManageAccounts /> },
         { text: 'Tienda', icon: <FaStore /> },
@@ -18,6 +23,20 @@ function Sidebar() {
         { text: 'Soporte', icon: <MdOutlineSupportAgent /> },
         { text: 'Salir', icon: <ImExit /> },
     ];
+
+    const menuItemsPath = [
+        { text: 'home'},
+        { text: 'detil-cart'},
+        { text: 'Pedidos'},
+        { text: 'Cuentas'},
+        { text: 'Tienda'},
+        { text: 'Movimientos'},
+        { text: 'Soporte'},
+        { text: 'Salir'},
+    ];
+
+    const path = location.pathname.startsWith("/") ? location.pathname.slice(1) : location.pathname;
+
 
     const theme = useTheme();
 
@@ -46,7 +65,10 @@ function Sidebar() {
                             },
                         }}
                     >
-                        <ListItemButton selected={item.text === 'Home'}>
+                        <ListItemButton
+                            selected={menuItemsPath[index].text === path}
+                            onClick={() => navigate(`/${menuItemsPath[index].text}`)}
+                        >
                             <ListItemIcon>{item.icon}</ListItemIcon>
                             <ListItemText primary={item.text} />
                         </ListItemButton>

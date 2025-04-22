@@ -18,7 +18,7 @@ const ItemInCartSlider = ( { item } : ItemInCartSliderProps ) => {
                 width="100%"
                 position="relative"
             >
-                <ImageProductInCart name={item.name} image={item.imageUrl} id={item.id} />
+                <ImageProductInCart name={item.name} image={item.imageUrl} id={item.id} width={90} />
                 <InfoProductInCart name={item.name} quantity={item.quantity} price={+item.price} />
             </Box>
         </>

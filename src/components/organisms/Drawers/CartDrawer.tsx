@@ -1,10 +1,11 @@
-﻿import {Box, Drawer, List, ListItem, Typography} from "@mui/material";
+﻿import {Box, Drawer, IconButton, List, ListItem, Typography} from "@mui/material";
 import {Fragment} from "react";
 import ItemInCartSlider from "../../molecules/ItemInCartSlider.tsx";
 import Divider from "@mui/material/Divider";
 import NotProductsInCart from "../../atoms/NotProductsInCart.tsx";
 import BuyProductsInCart from "../../atoms/BuyProductsInCart.tsx";
 import {useCartStore} from "../../../store/useStore.ts";
+import {MdCancel} from "react-icons/md";
 
 type CartDrawerProps = {
     isCartOpen: boolean;
@@ -29,12 +30,29 @@ const CartDrawer = ( { isCartOpen, setIsCartOpen } : CartDrawerProps ) => {
             >
                 {/* Contenido principal del carrito */}
                 <Box sx={{ overflowY: 'auto' }}>
-                    <Typography sx={{
-                        display: "flex",
-                        justifyContent: "space-around"
-                    }} variant="h6" gutterBottom>
-                        Carrito de Compras
-                    </Typography>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-around',
+                        }}
+                    >
+                        <Typography sx={{
+                            display: "flex",
+                            justifyContent: "space-around"
+                        }} variant="h6" gutterBottom>
+                            Carrito de Compras
+                        </Typography>
+
+                        <IconButton
+                            sx={{
+                                color: 'red'
+                            }}
+                            onClick={() => setIsCartOpen(!isCartOpen)}
+                        >
+                            <MdCancel />
+                        </IconButton>
+                    </Box>
+
                     <List>
                         {cartStore.length > 0 ? (
                             cartStore.map((item) => (

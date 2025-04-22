@@ -74,6 +74,42 @@ export const useCartStore = create<CartStore>()(
                         }
                     })
                 },
+
+                addQuantityById: (id: number) => {
+                    setState((state) => {
+
+                        let updateTotal = state.totalAmount;
+                        const newState = state.cartStore.map((item) => {
+                            if (item.id === id) {
+                                updateTotal += +item.price;
+                                return { ...item, quantity: item.quantity + 1 };
+                            }
+                            return item;
+                        });
+
+                        localStorage.setItem("cart-storage", JSON.stringify(newState));
+
+                        return { cartStore: newState, totalAmount: updateTotal };
+                    });
+                },
+
+                removeQuantityById: (id:  number) => {
+                    setState( (state) => {
+
+                        let updateTotal = state.totalAmount;
+                        const newState = state.cartStore.map((item) => {
+                            if (item.id === id) {
+                                updateTotal -= +item.price;
+                                return { ...item, quantity: item.quantity - 1 };
+                            }
+                            return item;
+                        });
+
+                        localStorage.setItem("cart-storage", JSON.stringify(newState));
+
+                        return { cartStore: newState, totalAmount: updateTotal };
+                    } )
+                }
             }),
             {
                 name: "cart-storage", // Nombre clave para el almacenamiento

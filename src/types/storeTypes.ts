@@ -5,6 +5,8 @@ type CartStore = {
     totalAmount: number;
     addItemToCart: (item: CartItem) => void;
     removeItemById: (id: number) => void;
+    addQuantityById: (id: number) => void;
+    removeQuantityById: (id: number) => void;
 }
 
 export type {
